@@ -31,6 +31,10 @@ public interface API {
     @GET("search")
     Call<Restaurants> fetchData();
 
-    @GET("/restaurant/{res_id}")
-    Call<Restaurant> fetchDataDetail(@Path("res_id") int restaurantId);
+    @Headers({
+            "Accept: application/json",
+            "user-key: a64754bb91447efbe864016d75dee292"
+    })
+    @GET("restaurant")
+    Call<Restaurant> fetchDataDetail(@Query("res_id") int res_id);
 }

@@ -25,7 +25,7 @@ public class RestaurantViewModel extends ViewModel {
 
     // Instance of class ViewModel
     private MutableLiveData<List<ObjRestaurant>> restaurantList;
-    private MutableLiveData<ObjRestaurant> restaurant;
+    private MutableLiveData<Restaurant> restaurant;
 
     // Fetch data
     public LiveData<List<ObjRestaurant>> getRestaurant(){
@@ -36,9 +36,9 @@ public class RestaurantViewModel extends ViewModel {
         return this.restaurantList;
     }
 
-    public LiveData<ObjRestaurant> getRestaurantDetail(int restaurantId) {
+    public LiveData<Restaurant> getRestaurantDetail(int restaurantId) {
         if(this.restaurant == null){
-            this.restaurant = new MutableLiveData<ObjRestaurant>();
+            this.restaurant = new MutableLiveData<Restaurant>();
             fetchDataRestaurantDetail(restaurantId);
         }
         return this.restaurant;
@@ -96,7 +96,7 @@ public class RestaurantViewModel extends ViewModel {
 
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-                restaurant.setValue(response.body().);
+                restaurant.setValue(response.body());
                 Log.e("", response.body().getName());
             }
 

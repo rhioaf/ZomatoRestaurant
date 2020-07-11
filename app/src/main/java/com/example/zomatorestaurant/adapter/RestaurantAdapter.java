@@ -65,7 +65,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         });
 
         Glide.with(this.context)
-                .load(restaurant.getRestaurant().getUrlImage())
+                .load(restaurant.getRestaurant().getThumb())
                 .into(holder.ivRestaurantImage);
         holder.tvRestaurantName.setText(restaurant.getRestaurant().getName());
         holder.tvCurrency.setText(restaurant.getRestaurant().getCurrency());

@@ -54,13 +54,17 @@ public class Restaurant {
     @Expose
     private UserRating userRating;
 
-    @SerializedName("restaurant")
+    @SerializedName("thumb")
     @Expose
-    private ObjRestaurant restaurant;
+    private String thumb;
+
+//    @SerializedName("restaurant")
+//    @Expose
+//    private ObjRestaurant restaurant;
 
     // Constructor
     public Restaurant(int id, String name, String url, Location location, int average, int priceRange, String currency,
-                      String urlImage, int hasOnline, int isDeliver, String phoneNumber, UserRating userRating){
+                      String urlImage, int hasOnline, int isDeliver, String phoneNumber, UserRating userRating, String thumb){
         this.id = id;
         this.name = name;
         this.url = url;
@@ -73,6 +77,7 @@ public class Restaurant {
         this.isDeliver = isDeliver;
         this.phoneNumber = phoneNumber;
         this.userRating = userRating;
+        this.thumb = thumb;
     }
 
     // Getter and Setter
@@ -172,8 +177,15 @@ public class Restaurant {
         this.userRating = userRating;
     }
 
-    public ObjRestaurant getRestaurant() {
-        return this.restaurant;
+    public String getThumb() {
+        return thumb;
     }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
+//    public ObjRestaurant getRestaurant() {
+//        return this.restaurant;
+//    }
 
 }

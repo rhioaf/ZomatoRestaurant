@@ -7,18 +7,17 @@
     tools:context=".RestaurantDetailActivity">
 
     <ImageView
-        android:id="@+id/iv_restaurant"
+        android:id="@+id/iv_restaurant_detail"
         android:layout_width="wrap_content"
         android:layout_height="252dp"
         android:contentDescription="@string/restaurant"
         android:scaleType="centerCrop"
-        android:src="@drawable/restaurant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_restaurant_name"
+        android:id="@+id/tv_restaurant_name_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

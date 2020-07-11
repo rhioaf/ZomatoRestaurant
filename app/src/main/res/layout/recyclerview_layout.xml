@@ -12,8 +12,7 @@
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:contentDescription="@string/restaurant"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/restaurant" />
+        android:scaleType="centerCrop" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
