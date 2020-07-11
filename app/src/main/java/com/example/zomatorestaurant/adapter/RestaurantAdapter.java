@@ -1,6 +1,7 @@
 package com.example.zomatorestaurant.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.zomatorestaurant.MainActivity;
 import com.example.zomatorestaurant.R;
+import com.example.zomatorestaurant.RestaurantDetailActivity;
 import com.example.zomatorestaurant.pojo.ObjRestaurant;
 import com.example.zomatorestaurant.pojo.Restaurant;
-import com.example.zomatorestaurant.pojo.Restaurants;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -24,6 +24,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
     Context context;
     List<ObjRestaurant> list;
+    private Restaurant restaurant;
 
     public RestaurantAdapter(Context context){
 //        this.list = list = null;
@@ -45,9 +46,24 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         notifyDataSetChanged();
     }
 
+    public void setDataDetail(Restaurant restaurant){
+        this.restaurant = restaurant;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ObjRestaurant restaurant = list.get(position);
+        final ObjRestaurant restaurant = list.get(position);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(context, RestaurantDetailActivity.class);
+                intent.putExtra("restaurantId", restaurant.getRestaurant().getId());
+                context.startActivity(intent);
+            }
+        });
+
         Glide.with(this.context)
                 .load(restaurant.getRestaurant().getUrlImage())
                 .into(holder.ivRestaurantImage);

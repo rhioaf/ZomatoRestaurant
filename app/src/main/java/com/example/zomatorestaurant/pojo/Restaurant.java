@@ -54,6 +54,10 @@ public class Restaurant {
     @Expose
     private UserRating userRating;
 
+    @SerializedName("restaurant")
+    @Expose
+    private ObjRestaurant restaurant;
+
     // Constructor
     public Restaurant(int id, String name, String url, Location location, int average, int priceRange, String currency,
                       String urlImage, int hasOnline, int isDeliver, String phoneNumber, UserRating userRating){
@@ -166,6 +170,10 @@ public class Restaurant {
 
     public void setUserRating(UserRating userRating) {
         this.userRating = userRating;
+    }
+
+    public ObjRestaurant getRestaurant() {
+        return this.restaurant;
     }
 
 }
