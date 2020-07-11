@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ZomatoRestaurant</string>
+    <string name="restaurant">Restaurant Image</string>
+    <string name="restaurant_name">Le Travin Grill</string>
+    <string name="cost_for_one">230 per person</string>
+    <string name="currency">$</string>
+    <string name="aggregate_rating">4.7</string>
+    <string name="has_online_dellivery">HAS ONLINE DELIVERY</string>
 </resources>
