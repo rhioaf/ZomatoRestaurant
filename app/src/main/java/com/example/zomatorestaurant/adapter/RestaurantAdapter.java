@@ -16,6 +16,8 @@ import com.example.zomatorestaurant.pojo.ObjRestaurant;
 import com.example.zomatorestaurant.pojo.Restaurant;
 import com.example.zomatorestaurant.pojo.Restaurants;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
@@ -46,10 +48,18 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ObjRestaurant restaurant = list.get(position);
-//        Glide.with(this.context)
-//                .load(restaurant.getUrlImage())
-//                .into(holder.imageView);
-        holder.textView.setText(restaurant.getRestaurant().getName());
+        Glide.with(this.context)
+                .load(restaurant.getRestaurant().getUrlImage())
+                .into(holder.ivRestaurantImage);
+        holder.tvRestaurantName.setText(restaurant.getRestaurant().getName());
+        holder.tvCurrency.setText(restaurant.getRestaurant().getCurrency());
+        holder.tvCostPerOne.setText((restaurant.getRestaurant().getAverage() / 2) + " per person");
+        if (restaurant.getRestaurant().getHasOnline() == 1) {
+            holder.tvHasOnlineDelivery.setText("HAS ONLINE ORDERING");
+        } else {
+            holder.tvHasOnlineDelivery.setText("OFFLINE ORDERING");
+        }
+        holder.tvAggregateRating.setText(restaurant.getRestaurant().getUserRating().getRating().toString());
     }
 
     @Override
@@ -61,13 +71,17 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-//        ImageView imageView;
-        TextView textView;
+        ImageView ivRestaurantImage;
+        TextView tvRestaurantName, tvCurrency, tvCostPerOne, tvHasOnlineDelivery, tvAggregateRating;
 
         public ViewHolder(View view){
             super(view);
-//            imageView = view.findViewById(R.id.imageRestaurant);
-            textView = (TextView) view.findViewById(R.id.nameRestaurant);
+            ivRestaurantImage = view.findViewById(R.id.iv_restaurant);
+            tvRestaurantName = (TextView) view.findViewById(R.id.tv_restaurant_name);
+            tvCurrency = (TextView) view.findViewById(R.id.tv_currency);
+            tvCostPerOne = (TextView) view.findViewById(R.id.tv_cost_for_one);
+            tvHasOnlineDelivery = (TextView) view.findViewById(R.id.tv_has_online_delivery);
+            tvAggregateRating = (TextView) view.findViewById(R.id.tv_aggregate_rating);
         }
     }
 }
