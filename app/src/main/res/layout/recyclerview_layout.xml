@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/tv_restaurant_name"
+                    android:id="@+id/nameRestaurant"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/restaurant_name"
@@ -75,7 +75,7 @@
                     android:text="@string/currency"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_restaurant_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/nameRestaurant" />
 
                 <TextView
                     android:id="@+id/tv_cost_for_one"
@@ -85,7 +85,7 @@
                     android:text="@string/cost_for_one"
                     android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@+id/tv_currency"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_restaurant_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/nameRestaurant" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
