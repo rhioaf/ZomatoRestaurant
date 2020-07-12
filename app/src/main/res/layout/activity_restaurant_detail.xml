@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical"
     tools:context=".RestaurantDetailActivity">
 
     <ImageView
@@ -242,13 +243,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_n_reviews_label" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_review"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view"
-        android:id="@+id/recycler_view_review"
-        tools:listitem="@layout/recyclerview_review"/>
+        tools:listitem="@layout/recyclerview_review" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
