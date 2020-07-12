@@ -1,12 +1,17 @@
 package com.example.zomatorestaurant;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import androidx.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -20,6 +25,13 @@ import com.example.zomatorestaurant.api.API;
 import com.example.zomatorestaurant.pojo.ObjRestaurant;
 import com.example.zomatorestaurant.pojo.Restaurant;
 
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,21 +44,36 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class RestaurantDetailActivity extends AppCompatActivity {
 
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private Context context;
     private ImageView ivRestaurant;
     private TextView tvRestaurantName;
     private RestaurantAdapter adapter;
     private Restaurant restaurant;
+    private MapView mvRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_detail);
         this.context = getApplicationContext();
+        Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
 
         //Find views
         ivRestaurant = (ImageView) findViewById(R.id.iv_restaurant_detail);
         tvRestaurantName = (TextView) findViewById(R.id.tv_restaurant_name_detail);
+        mvRestaurant = (MapView) findViewById(R.id.map);
+        mvRestaurant.setTileSource(TileSourceFactory.MAPNIK);
+
+        requestPermissionsIfNecessary(new String[] {
+                // if you need to show the current location, uncomment the line below
+                // Manifest.permission.ACCESS_FINE_LOCATION,
+                // WRITE_EXTERNAL_STORAGE is required in order to show the map
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        });
+
+        mvRestaurant.setBuiltInZoomControls(true);
+        mvRestaurant.setMultiTouchControls(true);
 
         Intent intent = getIntent();
         final int restaurantId = intent.getIntExtra("restaurantId", 0);
@@ -69,6 +96,10 @@ public class RestaurantDetailActivity extends AppCompatActivity {
                         .load(restaurant.getUrlImage())
                         .into(ivRestaurant);
                 tvRestaurantName.setText(restaurant.getName());
+                IMapController mapController = mvRestaurant.getController();
+                mapController.setZoom(9.5);
+                GeoPoint startPoint = new GeoPoint(Double.parseDouble(restaurant.getLocation().getLatitude()), Double.parseDouble(restaurant.getLocation().getLongitude()));
+                mapController.setCenter(startPoint);
             }
 
             @Override
@@ -97,5 +128,22 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 //                tvRestaurantName.setText(objRestaurant.getRestaurant().getName());
 //            }
 //        });
+    }
+
+    private void requestPermissionsIfNecessary(String[] strings) {
+        ArrayList<String> permissionsToRequest = new ArrayList<>();
+        for (String permission : strings) {
+            if (ContextCompat.checkSelfPermission(this, permission)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Permission is not granted
+                permissionsToRequest.add(permission);
+            }
+        }
+        if (permissionsToRequest.size() > 0) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    permissionsToRequest.toArray(new String[0]),
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+        }
     }
 }
