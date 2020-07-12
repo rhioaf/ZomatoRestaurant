@@ -122,14 +122,14 @@ public class RestaurantDetailActivity extends AppCompatActivity {
                     tvRestaurantHasOnlineDelivery.setText("NO ONLINE ORDERING AVAILABLE");
                 }
                 IMapController mapController = mvRestaurant.getController();
-                mapController.setZoom(9.5);
+                mapController.setZoom(18);
                 GeoPoint startPoint = new GeoPoint(Double.parseDouble(restaurant.getLocation().getLatitude()), Double.parseDouble(restaurant.getLocation().getLongitude()));
                 mapController.setCenter(startPoint);
 
                 Marker marker = new Marker(mvRestaurant);
                 marker.setPosition(startPoint);
                 marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                marker.setIcon(getResources().getDrawable(R.drawable.ic_launcher_background));
+                marker.setIcon(getResources().getDrawable(R.drawable.ic_stat_name));
                 marker.setTitle("Start Point");
                 mvRestaurant.getOverlays().add(marker);
             }
