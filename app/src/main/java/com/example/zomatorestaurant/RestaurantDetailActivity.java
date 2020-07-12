@@ -3,8 +3,6 @@ package com.example.zomatorestaurant;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
 import android.content.Context;
@@ -13,16 +11,12 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
-import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.zomatorestaurant.R;
 import com.example.zomatorestaurant.adapter.RestaurantAdapter;
 import com.example.zomatorestaurant.api.API;
-import com.example.zomatorestaurant.pojo.ObjRestaurant;
 import com.example.zomatorestaurant.pojo.Restaurant;
 
 import org.osmdroid.api.IMapController;
@@ -32,7 +26,6 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,7 +40,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private Context context;
     private ImageView ivRestaurant;
-    private TextView tvRestaurantName;
+    private TextView tvRestaurantName, tvRestaurantAggregateRating, tvRestaurantCurrency, tvRestaurantCostForOne, tvRestaurantHasOnlineDelivery;
     private RestaurantAdapter adapter;
     private Restaurant restaurant;
     private MapView mvRestaurant;
@@ -62,6 +55,10 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         //Find views
         ivRestaurant = (ImageView) findViewById(R.id.iv_restaurant_detail);
         tvRestaurantName = (TextView) findViewById(R.id.tv_restaurant_name_detail);
+        tvRestaurantAggregateRating = (TextView) findViewById(R.id.tv_restaurant_detail_aggregate_rating);
+        tvRestaurantCurrency = (TextView) findViewById(R.id.tv_restaurant_currency);
+        tvRestaurantCostForOne = (TextView) findViewById(R.id.tv_restaurant_cost_for_one);
+        tvRestaurantHasOnlineDelivery = (TextView) findViewById(R.id.tv_restaurant_has_online_delivery);
         mvRestaurant = (MapView) findViewById(R.id.map);
         mvRestaurant.setTileSource(TileSourceFactory.MAPNIK);
 
@@ -93,9 +90,17 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 //                Log.e("", response.body().getName());
                 restaurant = response.body();
                 Glide.with(getApplicationContext())
-                        .load(restaurant.getUrlImage())
+                        .load(restaurant.getThumb())
                         .into(ivRestaurant);
                 tvRestaurantName.setText(restaurant.getName());
+                tvRestaurantAggregateRating.setText(restaurant.getUserRating().getRating().toString());
+                tvRestaurantCurrency.setText(restaurant.getCurrency());
+                tvRestaurantCostForOne.setText((restaurant.getAverage() / 2) + " per person");
+                if (restaurant.getHasOnline() == 1) {
+                    tvRestaurantHasOnlineDelivery.setText("ONLINE ORDERING AVAILABLE");
+                } else {
+                    tvRestaurantHasOnlineDelivery.setText("NO ONLINE ORDERING AVAILABLE");
+                }
                 IMapController mapController = mvRestaurant.getController();
                 mapController.setZoom(9.5);
                 GeoPoint startPoint = new GeoPoint(Double.parseDouble(restaurant.getLocation().getLatitude()), Double.parseDouble(restaurant.getLocation().getLongitude()));
