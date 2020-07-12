@@ -6,4 +6,11 @@
     <string name="currency">$</string>
     <string name="aggregate_rating">4.7</string>
     <string name="has_online_dellivery">HAS ONLINE DELIVERY</string>
+    <string name="reviews_icon">Reviews Icon</string>
+    <string name="reviews">Reviews</string>
+    <string name="n_reviews">60</string>
+    <string name="n_reviews_label">REVIEWS</string>
+    <string name="review_time_friendly">4 months ago</string>
+    <string name="review_text">Mau bekel</string>
+    <string name="user_name">Dika</string>
 </resources>
