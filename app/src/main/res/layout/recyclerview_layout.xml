@@ -72,7 +72,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/tv_currency"
+                    android:id="@+id/tv_restaurant_currency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -82,19 +82,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
                 <TextView
-                    android:id="@+id/tv_cost_for_one"
+                    android:id="@+id/tv_restaurant_cost_for_one"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/cost_for_one"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@+id/tv_currency"
+                    app:layout_constraintStart_toEndOf="@+id/tv_restaurant_currency"
                     app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_has_online_delivery"
+                android:id="@+id/tv_restaurant_has_online_delivery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
