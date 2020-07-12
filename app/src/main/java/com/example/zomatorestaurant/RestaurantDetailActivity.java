@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Canvas;
 import android.os.Bundle;
 
 import androidx.lifecycle.Observer;
@@ -34,6 +35,8 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Overlay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +124,13 @@ public class RestaurantDetailActivity extends AppCompatActivity {
                 mapController.setZoom(9.5);
                 GeoPoint startPoint = new GeoPoint(Double.parseDouble(restaurant.getLocation().getLatitude()), Double.parseDouble(restaurant.getLocation().getLongitude()));
                 mapController.setCenter(startPoint);
+
+                Marker marker = new Marker(mvRestaurant);
+                marker.setPosition(startPoint);
+                marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                marker.setIcon(getResources().getDrawable(R.drawable.ic_launcher_background));
+                marker.setTitle("Start Point");
+                mvRestaurant.getOverlays().add(marker);
             }
 
             @Override
