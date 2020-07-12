@@ -93,9 +93,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             super(view);
             ivRestaurantImage = view.findViewById(R.id.iv_restaurant);
             tvRestaurantName = (TextView) view.findViewById(R.id.tv_user_name);
-            tvCurrency = (TextView) view.findViewById(R.id.tv_currency);
-            tvCostPerOne = (TextView) view.findViewById(R.id.tv_cost_for_one);
-            tvHasOnlineDelivery = (TextView) view.findViewById(R.id.tv_has_online_delivery);
+            tvCurrency = (TextView) view.findViewById(R.id.tv_restaurant_currency);
+            tvCostPerOne = (TextView) view.findViewById(R.id.tv_restaurant_cost_for_one);
+            tvHasOnlineDelivery = (TextView) view.findViewById(R.id.tv_restaurant_has_online_delivery);
             tvAggregateRating = (TextView) view.findViewById(R.id.tv_aggregate_rating);
         }
     }
