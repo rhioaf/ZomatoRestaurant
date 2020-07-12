@@ -56,24 +56,6 @@ public class RestaurantViewModel extends ViewModel {
     }
 
     private void fetchDataRestaurant(int entityId, String entityTpe){
-//        Retrofit retrofit = new Retrofit.Builder()
-//                                            .baseUrl(Config.BASE_URL)
-//                                            .addConverterFactory(GsonConverterFactory.create())
-//                                            .build();
-//        API api = retrofit.create(API.class);
-//        Call<List<Restaurants>> call = api.fetchData();
-//
-//        call.enqueue(new Callback<List<Restaurants>>() {
-//            @Override
-//            public void onResponse(Call<List<Restaurants>> call, Response<List<Restaurants>> response) {
-//                restaurantList.setValue(response.body());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Restaurants>> call, Throwable t) {
-//
-//            }
-//        });
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Config.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
