@@ -72,6 +72,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         adapter = new ReviewsAdapter(this);
         recyclerViewReview.setAdapter(adapter);
         recyclerViewReview.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewReview.setNestedScrollingEnabled(false);
         ivRestaurant = (ImageView) findViewById(R.id.iv_restaurant_detail);
         tvRestaurantName = (TextView) findViewById(R.id.tv_restaurant_name_detail);
         tvRestaurantAggregateRating = (TextView) findViewById(R.id.tv_restaurant_detail_aggregate_rating);
