@@ -247,7 +247,8 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view"
-        tools:listitem="@layout/recyclerview_review" />
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        android:id="@+id/recycler_view_review"
+        tools:listitem="@layout/recyclerview_review"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

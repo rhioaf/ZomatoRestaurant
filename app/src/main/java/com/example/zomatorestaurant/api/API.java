@@ -4,6 +4,7 @@ import com.example.zomatorestaurant.Config;
 import com.example.zomatorestaurant.pojo.ObjRestaurant;
 import com.example.zomatorestaurant.pojo.Restaurant;
 import com.example.zomatorestaurant.pojo.Restaurants;
+import com.example.zomatorestaurant.pojo.Reviews;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public interface API {
             "user-key: a64754bb91447efbe864016d75dee292"
     })
     @GET("search")
-    Call<Restaurants> fetchData();
+    Call<Restaurants> fetchData(@Query("entity_id") int entity_id, @Query("entity_type") String entity_type);
 
     @Headers({
             "Accept: application/json",
@@ -37,4 +38,12 @@ public interface API {
     })
     @GET("restaurant")
     Call<Restaurant> fetchDataDetail(@Query("res_id") int res_id);
+
+    @Headers({
+            "Accept: application/json",
+            "user-key: a64754bb91447efbe864016d75dee292"
+    })
+    @GET("reviews")
+    Call<Reviews> fetchReviews(@Query("res_id") int res_id);
+
 }
