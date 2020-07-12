@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.zomatorestaurant.api.API;
 import com.example.zomatorestaurant.pojo.ObjRestaurant;
+import com.example.zomatorestaurant.pojo.ObjReview;
 import com.example.zomatorestaurant.pojo.Restaurant;
 import com.example.zomatorestaurant.pojo.Restaurants;
+import com.example.zomatorestaurant.pojo.Reviews;
 
 import java.util.List;
 
@@ -26,12 +28,13 @@ public class RestaurantViewModel extends ViewModel {
     // Instance of class ViewModel
     private MutableLiveData<List<ObjRestaurant>> restaurantList;
     private MutableLiveData<Restaurant> restaurant;
+    private MutableLiveData<List<ObjReview>> reviewsList;
 
     // Fetch data
     public LiveData<List<ObjRestaurant>> getRestaurant(){
         if(this.restaurantList == null){
             this.restaurantList = new MutableLiveData<List<ObjRestaurant>>();
-            fetchDataRestaurant();
+            fetchDataRestaurant(11052, "city");
         }
         return this.restaurantList;
     }
@@ -44,7 +47,15 @@ public class RestaurantViewModel extends ViewModel {
         return this.restaurant;
     }
 
-    private void fetchDataRestaurant(){
+    public LiveData<List<ObjReview>> getReviews(int restaurantId){
+        if(this.reviewsList == null){
+            this.reviewsList = new MutableLiveData<List<ObjReview>>();
+            fetchReviewsRestaurant(restaurantId);
+        }
+        return this.reviewsList;
+    }
+
+    private void fetchDataRestaurant(int entityId, String entityTpe){
 //        Retrofit retrofit = new Retrofit.Builder()
 //                                            .baseUrl(Config.BASE_URL)
 //                                            .addConverterFactory(GsonConverterFactory.create())
@@ -68,7 +79,7 @@ public class RestaurantViewModel extends ViewModel {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         API api = retrofit.create(API.class);
-        Call<Restaurants> call = api.fetchData();
+        Call<Restaurants> call = api.fetchData(entityId, entityTpe);
 
         call.enqueue(new Callback<Restaurants>() {
             @Override
@@ -103,6 +114,27 @@ public class RestaurantViewModel extends ViewModel {
             @Override
             public void onFailure(Call<Restaurant> call, Throwable t) {
                 Log.e(TAG, t.toString());
+            }
+        });
+    }
+
+    public void fetchReviewsRestaurant(int restaurantId){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Config.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        API api = retrofit.create(API.class);
+        Call<Reviews> call = api.fetchReviews(restaurantId);
+
+        call.enqueue(new Callback<Reviews>() {
+            @Override
+            public void onResponse(Call<Reviews> call, Response<Reviews> response) {
+                reviewsList.setValue(response.body().getList());
+            }
+
+            @Override
+            public void onFailure(Call<Reviews> call, Throwable t) {
+
             }
         });
     }
