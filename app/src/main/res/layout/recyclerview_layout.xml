@@ -5,15 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:paddingStart="20dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="8dp">
 
     <ImageView
         android:id="@+id/iv_restaurant"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:contentDescription="@string/restaurant"
-        app:srcCompat="@drawable/restaurant"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/restaurant" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,7 +43,7 @@
                     android:id="@+id/tv_user_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="20dp"
                     android:ellipsize="end"
                     android:text="@string/restaurant_name"
                     android:textColor="@android:color/black"
@@ -53,6 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_rounded_rectangle"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_user_name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -65,6 +69,7 @@
                         android:text="@string/aggregate_rating"
                         android:textColor="@android:color/white"
                         android:textSize="12sp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
