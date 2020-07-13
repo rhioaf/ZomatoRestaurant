@@ -1,5 +1,6 @@
 package com.example.zomatorestaurant;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -9,9 +10,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Canvas;
 import android.os.Bundle;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.preference.PreferenceManager;
@@ -23,11 +24,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.zomatorestaurant.adapter.RestaurantAdapter;
 import com.example.zomatorestaurant.adapter.ReviewsAdapter;
 import com.example.zomatorestaurant.api.API;
 
-import com.example.zomatorestaurant.pojo.ObjRestaurant;
 import com.example.zomatorestaurant.pojo.ObjReview;
 import com.example.zomatorestaurant.pojo.Restaurant;
 
@@ -37,10 +36,11 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.Overlay;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,39 +53,37 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class RestaurantDetailActivity extends AppCompatActivity {
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
-    private Context context;
     private ImageView ivRestaurant;
     private TextView tvRestaurantName, tvRestaurantAggregateRating, tvRestaurantCurrency, tvRestaurantCostForOne, tvRestaurantHasOnlineDelivery;
     private Restaurant restaurant;
     private MapView mvRestaurant;
-    private RecyclerView recyclerViewReview = null;
     private ReviewsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.activity_restaurant_detail);
-        this.context = getApplicationContext();
+        Context context = getApplicationContext();
         Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
 
         //Find views
-        recyclerViewReview = (RecyclerView) findViewById(R.id.recycler_view_review);
+        RecyclerView recyclerViewReview = findViewById(R.id.recycler_view_review);
         adapter = new ReviewsAdapter(this);
         recyclerViewReview.setAdapter(adapter);
         recyclerViewReview.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewReview.setNestedScrollingEnabled(false);
-        ivRestaurant = (ImageView) findViewById(R.id.iv_restaurant_detail);
-        tvRestaurantName = (TextView) findViewById(R.id.tv_restaurant_name_detail);
-        tvRestaurantAggregateRating = (TextView) findViewById(R.id.tv_restaurant_detail_aggregate_rating);
-        tvRestaurantCurrency = (TextView) findViewById(R.id.tv_restaurant_currency);
-        tvRestaurantCostForOne = (TextView) findViewById(R.id.tv_restaurant_cost_for_one);
-        tvRestaurantHasOnlineDelivery = (TextView) findViewById(R.id.tv_restaurant_has_online_delivery);
-        mvRestaurant = (MapView) findViewById(R.id.map);
+        ivRestaurant = findViewById(R.id.iv_restaurant_detail);
+        tvRestaurantName = findViewById(R.id.tv_restaurant_name_detail);
+        tvRestaurantAggregateRating = findViewById(R.id.tv_restaurant_detail_aggregate_rating);
+        tvRestaurantCurrency = findViewById(R.id.tv_restaurant_currency);
+        tvRestaurantCostForOne = findViewById(R.id.tv_restaurant_cost_for_one);
+        tvRestaurantHasOnlineDelivery = findViewById(R.id.tv_restaurant_has_online_delivery);
+        mvRestaurant = findViewById(R.id.map);
         mvRestaurant.setTileSource(TileSourceFactory.MAPNIK);
 
         requestPermissionsIfNecessary(new String[] {
@@ -110,19 +108,23 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-//                Log.e("", response.body().getName());
                 restaurant = response.body();
+                String costForOne = null;
+                if (restaurant != null) {
+                    costForOne = (restaurant.getAverage() / 2) + " per person";
+                }
+
                 Glide.with(getApplicationContext())
                         .load(restaurant.getThumb())
                         .into(ivRestaurant);
                 tvRestaurantName.setText(restaurant.getName());
                 tvRestaurantAggregateRating.setText(restaurant.getUserRating().getRating().toString());
                 tvRestaurantCurrency.setText(restaurant.getCurrency());
-                tvRestaurantCostForOne.setText((restaurant.getAverage() / 2) + " per person");
+                tvRestaurantCostForOne.setText(costForOne);
                 if (restaurant.getHasOnline() == 1) {
-                    tvRestaurantHasOnlineDelivery.setText("ONLINE ORDERING AVAILABLE");
+                    tvRestaurantHasOnlineDelivery.setText(R.string.noOnlineOrderingAvailable);
                 } else {
-                    tvRestaurantHasOnlineDelivery.setText("NO ONLINE ORDERING AVAILABLE");
+                    tvRestaurantHasOnlineDelivery.setText(R.string.onlineOrderingAvailable);
                 }
                 IMapController mapController = mvRestaurant.getController();
                 mapController.setZoom(18);
@@ -132,7 +134,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
                 Marker marker = new Marker(mvRestaurant);
                 marker.setPosition(startPoint);
                 marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                marker.setIcon(getResources().getDrawable(R.drawable.ic_stat_name));
+                marker.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_stat_name, null));
                 marker.setTitle("Start Point");
                 mvRestaurant.getOverlays().add(marker);
             }
@@ -173,11 +175,8 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        ArrayList<String> permissionsToRequest = new ArrayList<>();
-        for (int i = 0; i < grantResults.length; i++) {
-            permissionsToRequest.add(permissions[i]);
-        }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, int[] grantResults) {
+        ArrayList<String> permissionsToRequest = new ArrayList<>(Arrays.asList(permissions).subList(0, grantResults.length));
         if (permissionsToRequest.size() > 0) {
             ActivityCompat.requestPermissions(
                     this,

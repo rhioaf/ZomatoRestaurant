@@ -18,8 +18,8 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
-    Context context;
-    List<ObjReview> list;
+    private Context context;
+    private List<ObjReview> list;
 
     public ReviewsAdapter(Context context){
         this.context = context;
@@ -54,17 +54,17 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         return this.list == null ? 0 : this.list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder{
         CircleImageView ivUser;
         TextView tvUserName, tvRating, tvReviewTime, reviewText;
 
-        public ViewHolder(View view){
+        ViewHolder(View view){
             super(view);
-            ivUser = (CircleImageView) view.findViewById(R.id.iv_user);
-            tvUserName = (TextView) view.findViewById(R.id.tv_user_name);
-            tvRating = (TextView) view.findViewById(R.id.tv_reviews_rating);
-            tvReviewTime = (TextView) view.findViewById(R.id.tv_review_time_friendly);
-            reviewText = (TextView) view.findViewById(R.id.tv_review);
+            ivUser = view.findViewById(R.id.iv_user);
+            tvUserName = view.findViewById(R.id.tv_user_name);
+            tvRating = view.findViewById(R.id.tv_reviews_rating);
+            tvReviewTime = view.findViewById(R.id.tv_review_time_friendly);
+            reviewText = view.findViewById(R.id.tv_review);
         }
     }
 }

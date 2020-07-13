@@ -13,4 +13,6 @@
     <string name="review_time_friendly">4 months ago</string>
     <string name="review_text">Mau bekel</string>
     <string name="user_name">Dika</string>
+    <string name="onlineOrderingAvailable">ONLINE ORDERING AVAILABLE</string>
+    <string name="noOnlineOrderingAvailable">NO ONLINE ORDERING AVAILABLE</string>
 </resources>
