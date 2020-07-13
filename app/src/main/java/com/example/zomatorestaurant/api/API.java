@@ -1,3 +1,5 @@
+// Author: 181511049 Ivan Eka Putra dan 181511064 Rhio Adjie Fabian
+
 package com.example.zomatorestaurant.api;
 
 import com.example.zomatorestaurant.pojo.Restaurant;

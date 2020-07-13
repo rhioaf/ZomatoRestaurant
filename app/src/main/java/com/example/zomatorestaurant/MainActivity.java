@@ -1,3 +1,5 @@
+// Author: 181511064 Rhio Adjie Fabian
+
 package com.example.zomatorestaurant;
 
 import androidx.appcompat.app.ActionBar;

@@ -1,3 +1,5 @@
+// Author: 181511064 Rhio Adjie Fabian
+
 package com.example.zomatorestaurant.adapter;
 
 import android.content.Context;

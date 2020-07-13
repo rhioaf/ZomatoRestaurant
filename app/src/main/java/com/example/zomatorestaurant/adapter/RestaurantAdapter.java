@@ -1,3 +1,5 @@
+// Author: 181511064 Rhio Adjie Fabian
+
 package com.example.zomatorestaurant.adapter;
 
 import android.content.Context;
@@ -28,11 +30,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     public RestaurantAdapter(Context context){
         this.context = context;
     }
-
-//    public RestaurantAdapter(Context context, List<ObjRestaurant>){
-//        this.list = list;
-//        this.context = context;
-//    }
 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View view = LayoutInflater.from(this.context).inflate(R.layout.recyclerview_layout, parent, false);
