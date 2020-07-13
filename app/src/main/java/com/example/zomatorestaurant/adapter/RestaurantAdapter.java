@@ -1,4 +1,4 @@
-// Author: 181511064 Rhio Adjie Fabian
+// Author: 181511049 Ivan Eka Putra dan 181511064 Rhio Adjie Fabian
 
 package com.example.zomatorestaurant.adapter;
 
