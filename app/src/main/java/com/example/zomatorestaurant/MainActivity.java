@@ -1,6 +1,9 @@
 package com.example.zomatorestaurant;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,7 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.example.zomatorestaurant.adapter.RestaurantAdapter;
 import com.example.zomatorestaurant.api.API;
@@ -32,10 +39,17 @@ public class MainActivity extends AppCompatActivity {
     private List<ObjRestaurant> restaurantsList;
     private RestaurantAdapter adapter;
     private Context context;
+    private Bitmap mBitmap;
+    private Resources mResources;
+    private ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.abs_layout);
+
         setContentView(R.layout.activity_main);
 
         context = getApplicationContext();
