@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ZomatoRestaurant</string>
+    <string name="app_name">ZOMATO</string>
     <string name="restaurant">Restaurant Image</string>
     <string name="restaurant_name">Le Travin Grill</string>
     <string name="cost_for_one">230 per person</string>
