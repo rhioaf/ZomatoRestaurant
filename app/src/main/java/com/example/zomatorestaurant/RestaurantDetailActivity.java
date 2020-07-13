@@ -124,9 +124,9 @@ public class RestaurantDetailActivity extends AppCompatActivity {
                 tvRestaurantCurrency.setText(restaurant.getCurrency());
                 tvRestaurantCostForOne.setText(costForOne);
                 if (restaurant.getHasOnline() == 1) {
-                    tvRestaurantHasOnlineDelivery.setText(R.string.noOnlineOrderingAvailable);
-                } else {
                     tvRestaurantHasOnlineDelivery.setText(R.string.onlineOrderingAvailable);
+                } else {
+                    tvRestaurantHasOnlineDelivery.setText(R.string.noOnlineOrderingAvailable);
                 }
                 IMapController mapController = mvRestaurant.getController();
                 mapController.setZoom(18);
