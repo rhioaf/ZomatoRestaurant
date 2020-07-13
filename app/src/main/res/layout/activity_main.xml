@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        android:id="@+id/recyclerview"
-        tools:listitem="@layout/recyclerview_layout"/>
+        tools:listitem="@layout/recyclerview_layout" />
 
 </RelativeLayout>
