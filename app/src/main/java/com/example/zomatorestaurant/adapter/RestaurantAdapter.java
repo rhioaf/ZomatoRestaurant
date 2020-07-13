@@ -2,6 +2,7 @@ package com.example.zomatorestaurant.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,9 +71,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         holder.tvCurrency.setText(restaurant.getRestaurant().getCurrency());
         holder.tvCostPerOne.setText((restaurant.getRestaurant().getAverage() / 2) + " per person");
         if (restaurant.getRestaurant().getHasOnline() == 1) {
-            holder.tvHasOnlineDelivery.setText("HAS ONLINE ORDERING");
+            holder.tvHasOnlineDelivery.setText("ONLINE ORDERING AVAILABLE");
         } else {
-            holder.tvHasOnlineDelivery.setText("OFFLINE ORDERING");
+            holder.tvHasOnlineDelivery.setText("NO ONLINE ORDERING AVAILABLE");
         }
         holder.tvAggregateRating.setText(restaurant.getRestaurant().getUserRating().getRating().toString());
     }
