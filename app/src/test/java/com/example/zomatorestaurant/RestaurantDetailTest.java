@@ -6,7 +6,6 @@ import com.example.zomatorestaurant.pojo.ObjReview;
 import com.example.zomatorestaurant.pojo.Restaurant;
 import com.example.zomatorestaurant.pojo.Restaurants;
 import com.example.zomatorestaurant.pojo.Reviews;
-import com.example.zomatorestaurant.RestaurantViewModel;
 
 import org.junit.Before;
 import org.junit.Test;
