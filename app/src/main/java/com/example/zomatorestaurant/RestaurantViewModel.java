@@ -32,6 +32,9 @@ public class RestaurantViewModel extends ViewModel {
     private MutableLiveData<List<ObjRestaurant>> restaurantList;
     private MutableLiveData<Restaurant> restaurant;
     private MutableLiveData<List<ObjReview>> reviewsList;
+    private List<ObjRestaurant> testDataRestaurant;
+    private Restaurant testDataRestaurantDetail;
+    private List<ObjReview> testDataReview;
 
     // Fetch data
     public LiveData<List<ObjRestaurant>> getRestaurant(){
@@ -127,5 +130,77 @@ public class RestaurantViewModel extends ViewModel {
 
             }
         });
+    }
+
+    // For Testing
+    public List<ObjRestaurant> fetchDataTest(String entityTpe){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Config.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        API api = retrofit.create(API.class);
+        Call<Restaurants> call = api.fetchData(11052, entityTpe);
+
+        call.enqueue(new Callback<Restaurants>() {
+            @Override
+            public void onResponse(@NonNull Call<Restaurants> call, Response<Restaurants> response) {
+                if (response.body() != null) {
+                    testDataRestaurant = response.body().getRestaurant();
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Restaurants> call, Throwable t) {
+
+            }
+        });
+        return testDataRestaurant;
+    }
+
+    public Restaurant fetchDataDetailTest(final int restaurantId){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Config.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        API api = retrofit.create(API.class);
+        Call<Restaurant> call = api.fetchDataDetail(restaurantId);
+
+        call.enqueue(new Callback<Restaurant>() {
+
+            @Override
+            public void onResponse(@NonNull Call<Restaurant> call, Response<Restaurant> response) {
+                if(response.body() != null){
+                    testDataRestaurantDetail = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Restaurant> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
+        return testDataRestaurantDetail;
+    }
+
+    public List<ObjReview> fetchReviewTest(int restaurantId){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Config.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        API api = retrofit.create(API.class);
+        Call<Reviews> call = api.fetchReviews(restaurantId);
+
+        call.enqueue(new Callback<Reviews>() {
+            @Override
+            public void onResponse(@NonNull Call<Reviews> call, Response<Reviews> response) {
+                if (response.body() != null) {
+                    testDataReview = response.body().getList();
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Reviews> call, Throwable t) {
+
+            }
+        });
+        return testDataReview;
     }
 }

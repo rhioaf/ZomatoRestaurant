@@ -6,9 +6,13 @@ import com.example.zomatorestaurant.pojo.ObjReview;
 import com.example.zomatorestaurant.pojo.Restaurant;
 import com.example.zomatorestaurant.pojo.Restaurants;
 import com.example.zomatorestaurant.pojo.Reviews;
+import com.example.zomatorestaurant.RestaurantViewModel;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -19,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static org.junit.Assert.*;
 
+@RunWith(JUnit4.class)
 public class FetchDataUnitTest {
 
     protected List<ObjRestaurant> list;
@@ -26,6 +31,7 @@ public class FetchDataUnitTest {
     protected ObjRestaurant objRestaurant;
     protected Restaurant dataRestaurant;
     protected int restaurantId;
+    protected RestaurantViewModel restaurantViewModel;
 
     @Before
     public void setUp(){
@@ -54,7 +60,6 @@ public class FetchDataUnitTest {
                     assertNotNull(list);
                 }
             }
-
             @Override
             public void onFailure(Call<Restaurants> call, Throwable t) {
 
