@@ -1,3 +1,5 @@
+// Author: 181511064 Rhio Adjie Fabian
+
 package com.example.zomatorestaurant.adapter;
 
 import android.content.Context;
@@ -16,8 +18,8 @@ import com.example.zomatorestaurant.pojo.Restaurant;
 
 public class RestaurantDetailAdapter extends RecyclerView.Adapter<RestaurantDetailAdapter.ViewHolder> {
 
-    Context context;
-    Restaurant restaurant;
+    private Context context;
+    private Restaurant restaurant;
 
     public RestaurantDetailAdapter(Context context){
         this.context = context;
@@ -49,14 +51,14 @@ public class RestaurantDetailAdapter extends RecyclerView.Adapter<RestaurantDeta
         return 0;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView ivRestaurantImage;
         TextView tvRestaurantName;
 
-        public ViewHolder(View view){
+        ViewHolder(View view){
             super(view);
             ivRestaurantImage = view.findViewById(R.id.iv_restaurant_detail);
-            tvRestaurantName = (TextView) view.findViewById(R.id.tv_restaurant_name_detail);
+            tvRestaurantName = view.findViewById(R.id.tv_restaurant_name_detail);
 
         }
     }

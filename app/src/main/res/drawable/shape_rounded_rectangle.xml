@@ -1,3 +1,5 @@
+<!-- Author: 181511049 Ivan Eka Putra -->
+
 <shape android:shape="rectangle" xmlns:android="http://schemas.android.com/apk/res/android">
     <corners
         android:topLeftRadius="6dp"

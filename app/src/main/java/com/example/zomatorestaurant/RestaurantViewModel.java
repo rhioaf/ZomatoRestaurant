@@ -1,7 +1,10 @@
+// Author: 181511049 Ivan Eka Putra dan 181511064 Rhio Adjie Fabian
+
 package com.example.zomatorestaurant;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -33,45 +36,46 @@ public class RestaurantViewModel extends ViewModel {
     // Fetch data
     public LiveData<List<ObjRestaurant>> getRestaurant(){
         if(this.restaurantList == null){
-            this.restaurantList = new MutableLiveData<List<ObjRestaurant>>();
-            fetchDataRestaurant(11052, "city");
+            this.restaurantList = new MutableLiveData<>();
+            fetchDataRestaurant("city");
         }
         return this.restaurantList;
     }
 
     public LiveData<Restaurant> getRestaurantDetail(int restaurantId) {
         if(this.restaurant == null){
-            this.restaurant = new MutableLiveData<Restaurant>();
+            this.restaurant = new MutableLiveData<>();
             fetchDataRestaurantDetail(restaurantId);
         }
         return this.restaurant;
     }
 
-    public LiveData<List<ObjReview>> getReviews(int restaurantId){
+    LiveData<List<ObjReview>> getReviews(int restaurantId){
         if(this.reviewsList == null){
-            this.reviewsList = new MutableLiveData<List<ObjReview>>();
+            this.reviewsList = new MutableLiveData<>();
             fetchReviewsRestaurant(restaurantId);
         }
         return this.reviewsList;
     }
 
-    private void fetchDataRestaurant(int entityId, String entityTpe){
+    private void fetchDataRestaurant(String entityTpe){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Config.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         API api = retrofit.create(API.class);
-        Call<Restaurants> call = api.fetchData(entityId, entityTpe);
+        Call<Restaurants> call = api.fetchData(11052, entityTpe);
 
         call.enqueue(new Callback<Restaurants>() {
             @Override
-            public void onResponse(Call<Restaurants> call, Response<Restaurants> response) {
-                restaurantList.setValue(response.body().getRestaurant());
-//                recyclerView.setAdapter(new RestaurantAdapter(getApplicationContext(), restaurantsList));
+            public void onResponse(@NonNull Call<Restaurants> call, Response<Restaurants> response) {
+                if (response.body() != null) {
+                    restaurantList.setValue(response.body().getRestaurant());
+                }
             }
 
             @Override
-            public void onFailure(Call<Restaurants> call, Throwable t) {
+            public void onFailure(@NonNull Call<Restaurants> call, Throwable t) {
 
             }
         });
@@ -88,19 +92,21 @@ public class RestaurantViewModel extends ViewModel {
         call.enqueue(new Callback<Restaurant>() {
 
             @Override
-            public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+            public void onResponse(@NonNull Call<Restaurant> call, Response<Restaurant> response) {
                 restaurant.setValue(response.body());
-                Log.e("", response.body().getName());
+                if (response.body() != null) {
+                    Log.e("", response.body().getName());
+                }
             }
 
             @Override
-            public void onFailure(Call<Restaurant> call, Throwable t) {
+            public void onFailure(@NonNull Call<Restaurant> call, Throwable t) {
                 Log.e(TAG, t.toString());
             }
         });
     }
 
-    public void fetchReviewsRestaurant(int restaurantId){
+    private void fetchReviewsRestaurant(int restaurantId){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Config.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -110,12 +116,14 @@ public class RestaurantViewModel extends ViewModel {
 
         call.enqueue(new Callback<Reviews>() {
             @Override
-            public void onResponse(Call<Reviews> call, Response<Reviews> response) {
-                reviewsList.setValue(response.body().getList());
+            public void onResponse(@NonNull Call<Reviews> call, Response<Reviews> response) {
+                if (response.body() != null) {
+                    reviewsList.setValue(response.body().getList());
+                }
             }
 
             @Override
-            public void onFailure(Call<Reviews> call, Throwable t) {
+            public void onFailure(@NonNull Call<Reviews> call, Throwable t) {
 
             }
         });
