@@ -23,8 +23,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static org.junit.Assert.*;
 
+//<<<<<<< HEAD:app/src/test/java/com/example/zomatorestaurant/FetchDataUnitTest.java
 @RunWith(JUnit4.class)
-public class FetchDataUnitTest {
+//public class FetchDataUnitTest {
+//=======
+public class RestaurantDetailTest {
+//>>>>>>> 19e0acd521782ce33051da35db938f457144da4a:app/src/test/java/com/example/zomatorestaurant/RestaurantDetailTest.java
 
     protected List<ObjRestaurant> list;
     protected List<ObjReview> listReviews;
@@ -36,6 +40,7 @@ public class FetchDataUnitTest {
     @Before
     public void setUp(){
         this.list = null;
+//<<<<<<< HEAD:app/src/test/java/com/example/zomatorestaurant/FetchDataUnitTest.java
         restaurantId = -1;
     }
 
@@ -65,11 +70,13 @@ public class FetchDataUnitTest {
 
             }
         });
+//=======
+//        restaurantId = 16774318;
+//>>>>>>> 19e0acd521782ce33051da35db938f457144da4a:app/src/test/java/com/example/zomatorestaurant/RestaurantDetailTest.java
     }
 
     @Test
     public void fetchRestaurantDetail(){
-        if(restaurantId != -1){
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(Config.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
@@ -91,16 +98,14 @@ public class FetchDataUnitTest {
 
                 }
             });
-        }
     }
 
     @Test
     public void fetchReviews(){
-        if(restaurantId != -1){
             Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl(Config.BASE_URL)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
+                    .baseUrl(Config.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
             API api = retrofit.create(API.class);
             Call<Reviews> call = api.fetchReviews(restaurantId);
 
@@ -118,6 +123,5 @@ public class FetchDataUnitTest {
 
                 }
             });
-        }
     }
 }
